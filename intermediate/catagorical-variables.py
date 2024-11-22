@@ -27,22 +27,22 @@ catagorical_cols = list(is_catagorical_cols[is_catagorical_cols].index)
 
 
 # Approach 1: Drop catagorical cols 
-# dropped_X_train = X_train.drop(catagorical_cols, axis = 1)
-# dropped_X_valid = X_valid.drop(catagorical_cols, axis = 1)
-# mae_score = score_dataset(dropped_X_train, dropped_X_valid, y_train, y_valid)
-# print("Approach 1 - Drop catagorical cols: ", mae_score)
+dropped_X_train = X_train.drop(catagorical_cols, axis = 1)
+dropped_X_valid = X_valid.drop(catagorical_cols, axis = 1)
+mae_score = score_dataset(dropped_X_train, dropped_X_valid, y_train, y_valid)
+print("Approach 1 - Drop catagorical cols: ", mae_score)
 
 # Approach 2: Cordinal Encoding
-# label_X_train = X_train.copy()
-# label_X_valid = X_valid.copy()
-# ordinal_encoder = OrdinalEncoder()
-# label_X_train = ordinal_encoder.fit_transform(X_train[catagorical_cols])
-# label_X_valid = ordinal_encoder.fit_transform(X_valid[catagorical_cols])
-# mae_score = score_dataset(label_X_train, label_X_valid, y_train, y_valid)
-# print("Approach 2 - Cordinal Encoding: ", mae_score)
+label_X_train = X_train.copy()
+label_X_valid = X_valid.copy()
+ordinal_encoder = OrdinalEncoder()
+label_X_train = ordinal_encoder.fit_transform(X_train[catagorical_cols])
+label_X_valid = ordinal_encoder.fit_transform(X_valid[catagorical_cols])
+mae_score = score_dataset(label_X_train, label_X_valid, y_train, y_valid)
+print("Approach 2 - Cordinal Encoding: ", mae_score)
 
 # Approach 3: One-hot Encoding
-OH_encoder = OneHotEncoder(handle_unknown='ignore')
+OH_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
 OH_X_train = pd.DataFrame(OH_encoder.fit_transform(X_train[catagorical_cols]))
 OH_X_valid = pd.DataFrame(OH_encoder.transform(X_valid[catagorical_cols]))
 
